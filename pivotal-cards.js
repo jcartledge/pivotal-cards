@@ -94,115 +94,130 @@
 	/*
 	 *  build cards
 	 */
-	var cardno = 0;
-	var fronts = [];
-	var backs = [];
+	var build_cards = function() {
+		var cardno = 0;
+		var fronts = [];
+		var backs = [];
+		var markdown = Markdown.getSanitizingConverter();
 
-	 ids = _.uniq(ids);
+		 ids = _.uniq(ids);
 
-	 _.each(ids, function (id) {
-		var matches = id.split(":");
-		var item;
-		var card;
+		 _.each(ids, function (id) {
+			var matches = id.split(":");
+			var item;
+			var card;
 
-		var story = (matches[0] === "epic")
-			? app.project.getEpicById(matches[1])
-			: app.project.getStoryById(matches[1]);
+			var story = (matches[0] === "epic")
+				? app.project.getEpicById(matches[1])
+				: app.project.getStoryById(matches[1]);
 
-		if (story) {
-			var labels = [];
-			var epic_name = "";
+			if (story) {
+				var labels = [];
+				var epic_name = "";
 
-			_.each(story.getLabels(), function(label) {
-				if (app.project.getEpicByLabel(label)) {
-					epic_name = label;
-				} else {
-					labels.push(label);
+				_.each(story.getLabels(), function(label) {
+					if (app.project.getEpicByLabel(label)) {
+						epic_name = label;
+					} else {
+						labels.push(label);
+					}
+				});
+
+				var points = story.getEstimate && story.getEstimate();
+				var name = story.getName() || "";
+				name = name.replace(/\band\b|&/g, '<span class="amp">&amp;</span>');
+
+				item = {
+					cardno: cardno,
+					story_type: story._storyType ? story._storyType._name : matches[0],
+					id: matches[1],
+					name: name,
+					description: markdown.makeHtml(story._description) || "",
+					epic_name: epic_name,
+					project_name: app.project.getName(),
+					labels: labels,
+					tasks: story.getTasks && story.getTasks(),
+					requester: story.getRequestedBy && story.getRequestedBy().displayName,
+					owner: story.getOwnedBy && story.getOwnedBy() && story.getOwnedBy().displayName,
+					points: points > 0 ? points : ""
+				};
+
+				if (item.story_type === "chore" && item.name.match(/\?\s*$/)) {
+					item.story_type = "spike";
 				}
-			});
 
-			var points = story.getEstimate && story.getEstimate();
-			var name = story.getName() || "";
-			name = name.replace(/\band\b|&/g, '<span class="amp">&amp;</span>');
+				/*
+				 *  make cards using templates
+				 */
+				card = make_front(item);
+				fronts.push($(card));
 
-			item = {
-				cardno: cardno,
-				story_type: story._storyType ? story._storyType._name : matches[0],
-				id: matches[1],
-				name: name,
-				description: story._description || "",
-				epic_name: epic_name,
-				project_name: app.project.getName(),
-				labels: labels,
-				tasks: story.getTasks && story.getTasks(),
-				requester: story.getRequestedBy && story.getRequestedBy().displayName,
-				owner: story.getOwnedBy && story.getOwnedBy() && story.getOwnedBy().displayName,
-				points: points > 0 ? points : ""
-			};
+				card = make_back(item);
+				backs.push($(card));
 
-			if (item.story_type === "chore" && item.name.match(/\?\s*$/)) {
-				item.story_type = "spike";
+				cardno++;
 			}
+		});
 
-			/*
-			 *  make cards using templates
-			 */
-			card = make_front(item);
-			fronts.push($(card));
+		/*
+		 *  layout cards 
+		 */
+		function double_sided() {
+			var cardno;
+			var front_page;
+			var back_page;
 
-			card = make_back(item);
-			backs.push($(card));
+			for (cardno = 0; cardno < fronts.length; cardno++) {
+				if ((cardno % 4) === 0) {
+					front_page = $('<div class="page fronts"></div>');
+					main.append(front_page);
 
-			cardno++;
+					back_page = $('<div class="page backs"></div>');
+					main.append(back_page);
+				}
+				front_page.append(fronts[cardno]);
+				back_page.append(backs[cardno]);
+
+				/*
+				if (!(cardno % 2)) {
+				} else {
+					$(back_page).children().last().before(backs[cardno]);
+				}
+				*/
+			}
 		}
-	});
 
-	/*
-	 *  layout cards 
-	 */
-	function double_sided() {
-		var cardno;
-		var front_page;
-		var back_page;
+		function single_sided() {
+			var cardno;
+			var page;
 
-		for (cardno = 0; cardno < fronts.length; cardno++) {
-			if ((cardno % 4) === 0) {
-				front_page = $('<div class="page fronts"></div>');
-				main.append(front_page);
-
-				back_page = $('<div class="page backs"></div>');
-				main.append(back_page);
+			for (cardno = 0; cardno < fronts.length; cardno++) {
+				if ((cardno % 2) === 0) {
+					page = $('<div class="page"></div>');
+					main.append(page);
+				}
+				page.append(fronts[cardno]);
+				page.append(backs[cardno]);
 			}
-			front_page.append(fronts[cardno]);
-			back_page.append(backs[cardno]);
-
-			/*
-			if (!(cardno % 2)) {
-			} else {
-				$(back_page).children().last().before(backs[cardno]);
-			}
-			*/
 		}
+
+
+		if (options['double-sided']) {
+			double_sided();
+		} else {
+			single_sided();
+		}
+
 	}
 
-	function single_sided() {
-		var cardno;
-		var page;
-
-		for (cardno = 0; cardno < fronts.length; cardno++) {
-			if ((cardno % 2) === 0) {
-				page = $('<div class="page"></div>');
-				main.append(page);
-			}
-			page.append(fronts[cardno]);
-			page.append(backs[cardno]);
+	$.getScript(
+		'//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js',
+		function() {
+			$.getScript(
+				'//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js',
+				build_cards
+			);
 		}
-	}
-
-	if (options['double-sided']) {
-		double_sided();
-	} else {
-		single_sided();
-	}
+	);
 
 }(jQuery));
