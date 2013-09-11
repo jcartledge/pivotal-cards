@@ -83,7 +83,8 @@
     items = $('.item'); // ... then use all items
   }
   var story_ids = _.uniq(items.map(function() {
-    return this.className.match(/story_([0-9]+)/)[1];
+    var match = this.className.match(/story_([0-9]+)/);
+    return match ? match[1] : '';
   }));
 
   /*
@@ -105,6 +106,9 @@
 
       if (story) {
 
+        var requester = project.members().get(story.get('requested_by_id'));
+        var owner = project.members().get(story.get('owned_by_id'));
+
         item = {
           cardno: cardno,
           story_type: story.get('story_type'),
@@ -115,8 +119,8 @@
           description: markdown.makeHtml(story.get('description')) || "",
           project_name: project.get('name'),
           labels: story.get('labels'),
-          requester: 'foo' /* story.getRequestedBy && story.getRequestedBy().displayName */,
-          owner: 'bar' /* story.getOwnedBy && story.getOwnedBy() && story.getOwnedBy().displayName */,
+          requester: requester ? requester.get('name') : '',
+          owner: owner ? owner.get('name') : '',
           points: story.get('estimate') > 0 ? story.get('estimate') : ""
         };
 
