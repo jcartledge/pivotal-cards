@@ -79,7 +79,7 @@
 	 *  Find visible items
 	 */
 	var ids = [];
-	var items = $('.item > .selected'); // use the selected items
+	var items = $('.item .selected'); // use the selected items
   	if (items.length == 0) { // if there are no selected items ...
 		items = $('.item'); // ... then use all items
 	}
