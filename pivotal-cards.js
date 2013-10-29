@@ -9,16 +9,18 @@
  *  https://github.com/psd/pivotal-cards
  *
  */
-(function ($) {
+(function ($, window, undefined) {
+
+  'use strict';
 
   var options = {
-    "filing-colours": true,
-    "rubber-stamp": true,
-    "double-sided": true,
-    "white-backs": true
+    'filing-colours': true,
+    'rubber-stamp': true,
+    'double-sided': true,
+    'white-backs': true
   };
 
-  var make_front = _.template(
+  var makeFront = _.template(
     '<div class="<%= story_type %> card" id="front-<%= cardno %>">' +
     ' <div class="front side">' +
     '   <div class="header">' +
@@ -37,7 +39,7 @@
     ' </div>' +
     '</div>');
 
-  var make_back = _.template(
+  var makeBack = _.template(
     '<div class="<%= story_type %> card" id="back-<%= cardno %>">' +
     ' <div class="back side">' +
     '   <div class="header">' +
@@ -118,7 +120,7 @@
           tasks: [],
           description: markdown.makeHtml(story.get('description')) || "",
           project_name: project.get('name'),
-          labels: story.get('labels'),
+          labels: getLabels(story),
           requester: requester ? requester.get('name') : '',
           owner: owner ? owner.get('name') : '',
           points: story.get('estimate') > 0 ? story.get('estimate') : ""
@@ -131,10 +133,10 @@
         /*
          *  make cards using templates
          */
-        card = make_front(item);
+        card = makeFront(item);
         fronts.push($(card));
 
-        card = make_back(item);
+        card = makeBack(item);
         backs.push($(card));
 
         cardno++;
@@ -183,6 +185,12 @@
       }
     }
 
+    function getLabels(story) {
+      return _.map(story.get('label_ids'), function (id) {
+        return project.labels().get(id).get('name');
+      });
+    }
+
 
     if (options['double-sided']) {
       double_sided();
@@ -202,4 +210,4 @@
     }
   );
 
-}(jQuery));
+}(jQuery, window));
