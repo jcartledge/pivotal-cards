@@ -103,7 +103,9 @@
         }
 
         function getEstimate(story) {
-            return story.get('estimate') > 0 ? story.get('estimate') : '';
+            return story.get('estimate') > 0 ? story.get('estimate') : (
+                getType(story) === 'feature' ? '?': ''
+            );
         }
 
         function getType(story) {
