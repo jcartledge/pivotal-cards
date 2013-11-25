@@ -125,7 +125,7 @@
                     var $body = $('body');
                     $body.find('>*').hide();
                     buildCards(
-                        $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs"/>').appendTo($body),
+                        $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo($body),
                         $('.item:has(.selected)'),
                         tracker.Project.current(),
                         window.Markdown.getSanitizingConverter()
