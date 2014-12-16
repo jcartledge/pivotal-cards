@@ -127,9 +127,12 @@
                     window.pivotalCards = function() {
                         var $body = $('body');
                         var $cards = $('#pivotal-cards-pages');
+                        var $root = $('#root');
                         if($cards.length > 0) {
                             $cards.remove();
+                            $root.show();
                         } else {
+                            $root.hide();
                             buildCards(
                                 $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo($body),
                                 $('.item:has(.selected)'),
