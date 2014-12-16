@@ -1,6 +1,6 @@
 javascript: (function(url, filename, document, createElement, appendChild, script, link,undefined) {
 
-  if (typeof pivotalCards === undefined) {
+  if (typeof pivotalCards === "undefined") {
     script = document[createElement]('script'),
     script.src = url + filename + 'js',
     document.body[appendChild](script),
