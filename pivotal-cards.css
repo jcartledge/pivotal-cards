@@ -17,11 +17,11 @@
 /*
  *  double-sided printing
  */
-#pivotal-cards-pages .double-sided .backs {
+#pivotal-cards-pages.double-sided .backs {
     -webkit-transform: rotate(180deg);
 }
 
-#pivotal-cards-pages .double-sided .backs .card {
+#pivotal-cards-pages.double-sided .backs .card {
     float: right;
 }
 
@@ -197,96 +197,96 @@
 /*
  *  cards for story-type
  */
-#pivotal-cards-pages .filing-colours .front {
+#pivotal-cards-pages.filing-colours .front {
     border: 1mm solid #333;
 }
 
-#pivotal-cards-pages .filing-colours .bug,
-#pivotal-cards-pages .filing-colours .bug .footer {
+#pivotal-cards-pages.filing-colours .bug,
+#pivotal-cards-pages.filing-colours .bug .footer {
     background-color: #ffffff;
 }
 
-#pivotal-cards-pages .filing-colours .bug .label {
+#pivotal-cards-pages.filing-colours .bug .label {
     color: #ffffff;
 }
 
-#pivotal-cards-pages .filing-colours .chore,
-#pivotal-cards-pages .filing-colours .chore .footer {
+#pivotal-cards-pages.filing-colours .chore,
+#pivotal-cards-pages.filing-colours .chore .footer {
     background-color: #f8f8f8;
 }
 
-#pivotal-cards-pages .filing-colours .chore .label {
+#pivotal-cards-pages.filing-colours .chore .label {
     color: #f8f8f8;
 }
 
-#pivotal-cards-pages .filing-colours .epic,
-#pivotal-cards-pages .filing-colours .epic .footer  {
+#pivotal-cards-pages.filing-colours .epic,
+#pivotal-cards-pages.filing-colours .epic .footer  {
     background-color: #f0b040;
 }
 
-#pivotal-cards-pages .filing-colours .epic .label {
+#pivotal-cards-pages.filing-colours .epic .label {
     color: #f0b040;
 }
 
-#pivotal-cards-pages .filing-colours .release,
-#pivotal-cards-pages .filing-colours .release .footer {
+#pivotal-cards-pages.filing-colours .release,
+#pivotal-cards-pages.filing-colours .release .footer {
     background-color: #d0c0ff;
 }
 
-#pivotal-cards-pages .filing-colours .release .label {
+#pivotal-cards-pages.filing-colours .release .label {
     color: #d0c0ff;
 }
 
-#pivotal-cards-pages .filing-colours .feature,
-#pivotal-cards-pages .filing-colours .feature .footer {
+#pivotal-cards-pages.filing-colours .feature,
+#pivotal-cards-pages.filing-colours .feature .footer {
     background-color: #e9f9d9;
 }
 
-#pivotal-cards-pages .filing-colours .feature .label {
+#pivotal-cards-pages.filing-colours .feature .label {
     color: #f0ffe0;
 }
 
-#pivotal-cards-pages .filing-colours .spike,
-#pivotal-cards-pages .filing-colours .spike .footer {
+#pivotal-cards-pages.filing-colours .spike,
+#pivotal-cards-pages.filing-colours .spike .footer {
     background-color: #fffba0;
 }
 
-#pivotal-cards-pages .filing-colours .spike .label {
+#pivotal-cards-pages.filing-colours .spike .label {
     color: #fffba0;
 }
 
 /*
  *  story type as rubber stamp
  */
-#pivotal-cards-pages .rubber-stamp .chore .front .story-type {
+#pivotal-cards-pages.rubber-stamp .chore .front .story-type {
     margin-top: 0;
     margin-left: 0;
     font-size: 44mm;
 }
 
-#pivotal-cards-pages .rubber-stamp .epic .front .story-type {
+#pivotal-cards-pages.rubber-stamp .epic .front .story-type {
     margin-top: -12mm;
     margin-left: 3mm;
     font-size: 61mm;
 }
 
-#pivotal-cards-pages .rubber-stamp .feature .front .story-type {
+#pivotal-cards-pages.rubber-stamp .feature .front .story-type {
     display: none;
 }
 
-#pivotal-cards-pages .rubber-stamp .spike .front .story-type {
+#pivotal-cards-pages.rubber-stamp .spike .front .story-type {
     margin-top: -5mm;
     margin-left: 0mm;
     font-size: 50mm;
 }
 
-#pivotal-cards-pages .rubber-stamp .release .front .story-type {
+#pivotal-cards-pages.rubber-stamp .release .front .story-type {
     margin-top: 4.5mm;
     margin-left: 0mm;
     font-size: 36mm;
 }
 
-#pivotal-cards-pages .rubber-stamp .bug .front .story-type {
+#pivotal-cards-pages.rubber-stamp .bug .front .story-type {
     margin-top: -11mm;
     margin-left: 7mm;
     font-size: 62mm;
@@ -295,9 +295,9 @@
 /*
  *  white backs
  */
-#pivotal-cards-pages .white-backs .backs .card,
-#pivotal-cards-pages .white-backs .backs .card .side,
-#pivotal-cards-pages .white-backs .backs .card .side .footer {
+#pivotal-cards-pages.white-backs .backs .card,
+#pivotal-cards-pages.white-backs .backs .card .side,
+#pivotal-cards-pages.white-backs .backs .card .side .footer {
     background-color: #ffffff;
 }
 
