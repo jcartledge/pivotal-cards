@@ -1,7 +1,7 @@
 /*
  *  hard-coded ISO paper sizes, but you can zoom when printing, no?
  */
-.page {
+#pivotal-cards-pages .page {
     font-family: "Helvetica Neue", sans-serif;
     font-size: 3.5mm;
     padding: 10mm;
@@ -17,15 +17,15 @@
 /*
  *  double-sided printing
  */
-.double-sided .backs {
+#pivotal-cards-pages .double-sided .backs {
     -webkit-transform: rotate(180deg);
 }
 
-.double-sided .backs .card {
+#pivotal-cards-pages .double-sided .backs .card {
     float: right;
 }
 
-.card {
+#pivotal-cards-pages .card {
     float: left;
     height: 85mm;
     /*width; 132mm;*/
@@ -35,7 +35,7 @@
     -webkit-print-color-adjust: exact;
 }
 
-.side {
+#pivotal-cards-pages .side {
     margin: 5mm;
     height: 65mm;
     width: 115mm;
@@ -45,23 +45,23 @@
     position: relative;
 }
 
-.back {
+#pivotal-cards-pages .back {
     border: 1mm solid #333;
 }
 
-.header {
+#pivotal-cards-pages .header {
     height: 7.5mm;
     overflow: hidden;
     text-transform: uppercase;
 }
 
-.back .header {
+#pivotal-cards-pages .back .header {
     border-bottom: 1mm solid #333;
     margin-bottom: 4mm;
     padding-bottom: 2mm;
 }
 
-.middle {
+#pivotal-cards-pages .middle {
     height: 53mm;
     max-height: 53mm;
     width: 115mm;
@@ -70,12 +70,12 @@
     position: relative;
 }
 
-.back .middle {
+#pivotal-cards-pages .back .middle {
     height: 48mm;
     max-height: 48mm;
 }
 
-.front .story-type {
+#pivotal-cards-pages .front .story-type {
     color: rgba(255, 0, 0, 0.1);
     font-family: impact;
     font-weight: bolder;
@@ -87,7 +87,7 @@
     left: 0;
 }
 
-.front .story-title {
+#pivotal-cards-pages .front .story-title {
     font-weight: bold;
     font-size: 9mm;
     text-align: center;
@@ -97,35 +97,35 @@
     z-index: 4;
 }
 
-.labels {
+#pivotal-cards-pages .labels {
     float: right;
 }
 
-.label {
+#pivotal-cards-pages .label {
     background-color: #333;
     color: #fff;
     padding: 1mm;
 }
 
-.header .project,
-.header .id {
+#pivotal-cards-pages .header .project,
+#pivotal-cards-pages .header .id {
     padding: 1mm 0;
 }
 
-.project {
+#pivotal-cards-pages .project {
     font-weight: bold;
 }
 
 
-.back .id {
+#pivotal-cards-pages .back .id {
     float: right;
 }
 
-.back .id:before {
+#pivotal-cards-pages .back .id:before {
     content: '#';
 }
 
-.footer {
+#pivotal-cards-pages .footer {
     color: #333;
     height: 7.5mm;
     width: 115mm;
@@ -133,18 +133,18 @@
     bottom: 0;
 }
 
-.amp {
+#pivotal-cards-pages .amp {
     font-family: "Baskerville";
     font-weight: normal;
     font-style: italic;
 }
 
-.epic_name {
+#pivotal-cards-pages .epic_name {
     float: left;
     text-transform: uppercase;
 }
 
-.points {
+#pivotal-cards-pages .points {
     float: right;
     position: relative;
     top: -4.5mm;
@@ -152,143 +152,141 @@
     font-weight: bold;
 }
 
-.back .story-title {
+#pivotal-cards-pages .back .story-title {
     font-weight: bold;
 }
 
-.description {
+#pivotal-cards-pages .description {
     font-family: serif;
     margin: 2mm 0;
 }
 
-.tasks {
+#pivotal-cards-pages .tasks {
     margin: 2mm 0;
     width: 100%
 }
 
-.task {
+#pivotal-cards-pages .task {
     font-family: serif;
     font-style: italic;
 }
 
-.check {
+#pivotal-cards-pages .check {
     font-weight: bold;
     vertical-align: top;
 }
 
-.requester {
+#pivotal-cards-pages .requester {
     float: left;
 }
 
-.requester:before {
+#pivotal-cards-pages .requester:before {
     content: "By: ";
     font-weight: bold;
 }
 
-
-.owner {
+#pivotal-cards-pages .owner {
     float: right;
 }
 
-.owner:before {
+#pivotal-cards-pages .owner:before {
     content: "For: ";
     font-weight: bold;
 }
 
-
 /*
  *  cards for story-type
  */
-.filing-colours .front {
+#pivotal-cards-pages .filing-colours .front {
     border: 1mm solid #333;
 }
 
-.filing-colours .bug,
-.filing-colours .bug .footer {
+#pivotal-cards-pages .filing-colours .bug,
+#pivotal-cards-pages .filing-colours .bug .footer {
     background-color: #ffffff;
 }
 
-.filing-colours .bug .label {
+#pivotal-cards-pages .filing-colours .bug .label {
     color: #ffffff;
 }
 
-.filing-colours .chore,
-.filing-colours .chore .footer {
+#pivotal-cards-pages .filing-colours .chore,
+#pivotal-cards-pages .filing-colours .chore .footer {
     background-color: #f8f8f8;
 }
 
-.filing-colours .chore .label {
+#pivotal-cards-pages .filing-colours .chore .label {
     color: #f8f8f8;
 }
 
-.filing-colours .epic,
-.filing-colours .epic .footer  {
+#pivotal-cards-pages .filing-colours .epic,
+#pivotal-cards-pages .filing-colours .epic .footer  {
     background-color: #f0b040;
 }
 
-.filing-colours .epic .label {
+#pivotal-cards-pages .filing-colours .epic .label {
     color: #f0b040;
 }
 
-.filing-colours .release,
-.filing-colours .release .footer {
+#pivotal-cards-pages .filing-colours .release,
+#pivotal-cards-pages .filing-colours .release .footer {
     background-color: #d0c0ff;
 }
 
-.filing-colours .release .label {
+#pivotal-cards-pages .filing-colours .release .label {
     color: #d0c0ff;
 }
 
-.filing-colours .feature,
-.filing-colours .feature .footer {
+#pivotal-cards-pages .filing-colours .feature,
+#pivotal-cards-pages .filing-colours .feature .footer {
     background-color: #e9f9d9;
 }
 
-.filing-colours .feature .label {
+#pivotal-cards-pages .filing-colours .feature .label {
     color: #f0ffe0;
 }
 
-.filing-colours .spike,
-.filing-colours .spike .footer {
+#pivotal-cards-pages .filing-colours .spike,
+#pivotal-cards-pages .filing-colours .spike .footer {
     background-color: #fffba0;
 }
 
-.filing-colours .spike .label {
+#pivotal-cards-pages .filing-colours .spike .label {
     color: #fffba0;
 }
 
 /*
  *  story type as rubber stamp
  */
-.rubber-stamp .chore .front .story-type {
-    margin-top: 0mm;
-    margin-left: 0mm;
+#pivotal-cards-pages .rubber-stamp .chore .front .story-type {
+    margin-top: 0;
+    margin-left: 0;
     font-size: 44mm;
 }
 
-.rubber-stamp .epic .front .story-type {
+#pivotal-cards-pages .rubber-stamp .epic .front .story-type {
     margin-top: -12mm;
     margin-left: 3mm;
     font-size: 61mm;
 }
 
-.rubber-stamp .feature .front .story-type {
+#pivotal-cards-pages .rubber-stamp .feature .front .story-type {
     display: none;
 }
 
-.rubber-stamp .spike .front .story-type {
+#pivotal-cards-pages .rubber-stamp .spike .front .story-type {
     margin-top: -5mm;
     margin-left: 0mm;
     font-size: 50mm;
 }
 
-.rubber-stamp .release .front .story-type {
+#pivotal-cards-pages .rubber-stamp .release .front .story-type {
     margin-top: 4.5mm;
     margin-left: 0mm;
     font-size: 36mm;
 }
 
-.rubber-stamp .bug .front .story-type {
+#pivotal-cards-pages .rubber-stamp .bug .front .story-type {
     margin-top: -11mm;
     margin-left: 7mm;
     font-size: 62mm;
@@ -297,8 +295,12 @@
 /*
  *  white backs
  */
-.white-backs .backs .card,
-.white-backs .backs .card .side,
-.white-backs .backs .card .side .footer {
+#pivotal-cards-pages .white-backs .backs .card,
+#pivotal-cards-pages .white-backs .backs .card .side,
+#pivotal-cards-pages .white-backs .backs .card .side .footer {
+    background-color: #ffffff;
+}
+
+#pivotal-cards-pages {
     background-color: #ffffff;
 }

@@ -125,6 +125,12 @@
                 '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js',
                 function() {
                     var $body = $('body');
+                    var $cards = $('#pivotal-cards-pages');
+                    if($cards.length > 0) {
+                        $cards.remove()
+                        $body.find('>*').show();
+
+                    }
                     $body.find('>*').hide();
                     buildCards(
                         $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo($body),
