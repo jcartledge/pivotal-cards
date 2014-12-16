@@ -1,1 +1,18 @@
-javascript:(function(a,b,c,d,e,f,g){f=c[d]('script');f.src=a+b+'js',c.body[e](f);g=c[d]('link');g.rel='stylesheet',g.href=a+b+'css',g.media='screen,print',g.type='text/css',c.head[e](g)}('//rawgit.com/jcartledge/pivotal-cards/master/','pivotal-cards.',document,'createElement','appendChild'))
+javascript: (function(url, filename, document, createElement, appendChild, script, link,undefined) {
+
+  if (typeof pivotalCards === undefined) {
+    script = document[createElement]('script'),
+    script.src = url + filename + 'js',
+    document.body[appendChild](script),
+
+    link = document[createElement]('link'),
+    link.rel = 'stylesheet',
+    link.href = url + filename + 'css',
+    link.media = 'screen,print',
+    link.type = 'text/css',
+    document.head[appendChild](link);
+  } else {
+    pivotalCards();
+  }
+
+}('//rawgit.com/jcartledge/pivotal-cards/master/', 'pivotal-cards.', document, 'createElement', 'appendChild'))
