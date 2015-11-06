@@ -1,150 +1,153 @@
-!(function (window, $, _, tracker, undefined) {
+(function (window, $, tracker) {
+  'use strict';
 
-    'use strict';
+  function frontTpl (item) {
+    return `
+      <div class="${item.storyType} card" id="front-${item.cardno}">
+        <div class="front side">
+          <div class="header">
+            <span class="labels">
+              ${labelTpl(item.labels)}
+           <span>
+         </div>
+         <div class="middle">
+           <div class="story-title">${item.name}</div>
+           <div class="story-type">${item.storyType}</div>
+         </div>
+         <div class="footer">
+           <span class="epic_name">${item.epicName}</span>
+           <span class="points points${item.points}"><span>${item.points}</span></span>
+         </div>
+       </div>
+      </div>`;
+  }
 
-    var frontTpl = _.template(
-        '<div class="<%= storyType %> card" id="front-<%= cardno %>">' +
-        ' <div class="front side">' +
-        '   <div class="header">' +
-        '     <span class="labels">' +
-        '<% _.each(labels, function(label) { %> <span class="label"><%= label %></span> <% }); %>' +
-        '     <span>' +
-        '   </div>' +
-        '   <div class="middle">' +
-        '     <div class="story-title"><%= name %></div>' +
-        '     <div class="story-type"><%= storyType %></div>' +
-        '   </div>' +
-        '   <div class="footer">' +
-        '     <span class="epic_name"><%= epicName %></span>' +
-        '     <span class="points points<%= points %>"><span><%= points %></span></span>' +
-        '   </div>' +
-        ' </div>' +
-        '</div>');
+  function labelTpl (labels) {
+    return labels.reduce((acc, label) => acc + `<span class="label">${label}</span>`, '');
+  }
 
-    var backTpl = _.template(
-        '<div class="<%= storyType %> card" id="back-<%= cardno %>">' +
-        ' <div class="back side">' +
-        '   <div class="header">' +
-        '     <span class="project"><%= projectName %></span>' +
-        '     <span class="id"><%= id %></span>' +
-        '   </div>' +
-        '   <div class="middle">' +
-        '     <div class="story-title"><%= name %></div>' +
-        '     <div class="description"><%= description %></div>' +
-        '     <table class="tasks">' +
-        '<% _.each(tasks, function(task) { %><tr>' +
-            '     <td class="check <%= task._complete ? "complete" : "incomplete" %>"><%= task._complete ? "☑" : "☐" %></td>' +
-            '     <td class="task"><%= task._description %></td>' +
-            '</tr><% }); %>' +
-        '     </table>' +
-        '   </div>' +
-        '   <div class="footer">' +
-        '     <% if (requester) { %><span class="requester"><%= requester %></span><% } %>' +
-        '     <% if (owner) { %><span class="owner"><%= owner %></span><% } %>' +
-        '   </div>' +
-        ' </div>' +
-        '</div>');
+  function backTpl (item) {
+    return `
+      <div class="${item.storyType} card" id="back-${item.cardno}">
+        <div class="back side">
+          <div class="header">
+            <span class="project">${item.projectName}</span>
+            <span class="id">${item.id}</span>
+          </div>
+          <div class="middle">
+            <div class="story-title">${item.name}</div>
+            <div class="description">${item.description}</div>
+         </div>
+         <div class="footer">
+           ${requesterTpl(item.requester)}
+           ${ownerTpl(item.owner)}
+         </div>
+       </div>
+      </div>
+    `;
+  }
 
-    function buildCards($el, items, project, markdown) {
-        var frontPage, backPage, item;
+  function requesterTpl (requester) {
+    return undefined === requester ? '' : `<span class="requester">${requester}</span>`;
+  }
 
-        _.each(_.uniq(_.map(items, function(item) {
-            return item.className.match(/story_([0-9]+)/)[1];
-        })), function (id, cardno) {
-            item = (function(id, story) {
-                return {
-                    'cardno':       cardno,
-                    'storyType':    getType(story),
-                    'id':           id,
-                    'name':         story.get('name'),
-                    'epicName':     '',
-                    'tasks':        [],
-                    'description':  getDescription(story, markdown),
-                    'projectName':  project.get('name'),
-                    'labels':       getLabels(story),
-                    'requester':    getRequester(project, story),
-                    'owner':        getOwner(project, story),
-                    'points':       getEstimate(story)
-                };
-            }(id, project.stories().get(id)));
+  function ownerTpl (owner) {
+    return undefined === owner ? '' : `<span class="owner">${owner}</span>`;
+  }
 
-            if ((cardno % 4) === 0) {
-                frontPage = $('<div class="page fronts"/>');
-                $el.append(frontPage);
-                backPage = $('<div class="page backs"/>');
-                $el.append(backPage);
-            }
-            frontPage.append(frontTpl(item));
-            backPage.append(backTpl(item));
-        });
+  function buildCards ($el, items, project, markdown) {
+    var frontPage, backPage, item;
 
+    items.map(item => item.className.match(/story_([0-9]+)/)[1])
+      .filter((val, i, self) => self.indexOf(val) === i)
+      .map(function (id, cardno) {
+        item = (function (id, story) {
+          return {
+            'cardno': cardno,
+            'storyType': getType(story),
+            'id': id,
+            'name': story.get('name'),
+            'epicName': '',
+            'tasks': [],
+            'description': getDescription(story, markdown),
+            'projectName': project.get('name'),
+            'labels': getLabels(story),
+            'requester': getRequester(project, story),
+            'owner': getOwner(project, story),
+            'points': getEstimate(story)
+          };
+        }(id, project.stories().get(id)));
 
-        function getLabels(story) {
-            return _.map(story.get('label_ids'), function (id) {
-                return project.labels().get(id).get('name');
-            });
+        if ((cardno % 4) === 0) {
+          frontPage = $('<div class="page fronts"/>').appendTo($el);
+          backPage = $('<div class="page backs"/>').appendTo($el);
         }
+        frontPage.append(frontTpl(item));
+        backPage.append(backTpl(item));
+      });
 
-        function getRequester(project, story) {
-            return getUsername(project, story.get('requested_by_id'));
-        }
-
-        function getOwner(project, story) {
-            return getUsername(project, story.get('owned_by_id'));
-        }
-
-        function getUsername(project, id) {
-            var user = project.members().get(id);
-            return user ? user.get('name') : '';
-        }
-
-        function getDescription(story, markdown) {
-            return markdown.makeHtml(story.get('description')) || '';
-        }
-
-        function getEstimate(story) {
-            return story.get('estimate') > 0 ? story.get('estimate') : (
-                getType(story) === 'feature' ? '?': ''
-            );
-        }
-
-        function getType(story) {
-            var type = story.get('story_type');
-            if (type === 'chore' && story.get('name').match(/\?\s*$/)) {
-                type = 'spike';
-            }
-            return type;
-        }
-
+    function getLabels (story) {
+      return story.get('label_ids').map((id) => project.labels().get(id).get('name'));
     }
 
-    $.getScript(
-        '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js',
-        function() {
-            $.getScript(
-                '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js',
-                function() {
-                    window.pivotalCards = function() {
-                        var $body = $('body');
-                        var $cards = $('#pivotal-cards-pages');
-                        var $root = $('#root');
-                        if($cards.length > 0) {
-                            $cards.remove();
-                            $root.show();
-                        } else {
-                            $root.hide();
-                            buildCards(
-                                $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo($body),
-                                $('.item:has(.selected)'),
-                                tracker.Project.current(),
-                                window.Markdown.getSanitizingConverter()
-                            );
-                        }
-                    };
-                    window.pivotalCards();
-                }
-            );
-        }
-    );
+    function getRequester (project, story) {
+      return getUsername(project, story.get('requested_by_id'));
+    }
 
-}(window, window.jQuery, window._, window.tracker));
+    function getOwner (project, story) {
+      return getUsername(project, story.get('owned_by_id'));
+    }
+
+    function getUsername (project, id) {
+      var user = project.members().get(id);
+      return user ? user.get('name') : '';
+    }
+
+    function getDescription (story, markdown) {
+      return markdown.makeHtml(story.get('description')) || '';
+    }
+
+    function getEstimate (story) {
+      return story.get('estimate') > 0 ? story.get('estimate') : (
+        getType(story) === 'feature' ? '?' : ''
+      );
+    }
+
+    function getType (story) {
+      var type = story.get('story_type');
+      if (type === 'chore' && story.get('name').match(/\?\s*$/)) {
+        type = 'spike';
+      }
+      return type;
+    }
+  }
+
+  $.getScript(
+    '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js',
+    function () {
+      $.getScript(
+        '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js',
+        function () {
+          window.pivotalCards = function () {
+            var $body = $('body');
+            var $cards = $('#pivotal-cards-pages');
+            var $root = $('#root');
+            if ($cards.length > 0) {
+              $cards.remove();
+              $root.show();
+            } else {
+              $root.hide();
+              buildCards(
+                $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo($body),
+                $('.item:has(.selected)').get(),
+                tracker.Project.current(),
+                window.Markdown.getSanitizingConverter()
+              );
+            }
+          };
+          window.pivotalCards();
+        }
+      );
+    }
+  );
+}(window, window.jQuery, window.tracker));
