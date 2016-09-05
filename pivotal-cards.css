@@ -4,7 +4,6 @@
 #pivotal-cards-pages .page {
     font-family: "Helvetica Neue", sans-serif;
     font-size: 3.5mm;
-    padding: 10mm;
     display: block;
     margin: 14mm 5.5mm;
     padding: 0;
@@ -60,6 +59,18 @@
     margin-bottom: 4mm;
     padding-bottom: 2mm;
 }
+
+#pivotal-cards-pages .header .severity {
+  position: relative;
+  top: -2mm;
+  font-size: 9mm;
+  font-weight: bold;
+}
+
+#pivotal-cards-pages .header .severity .sev1 { color: red; }
+#pivotal-cards-pages .header .severity .sev2 { color: orange; }
+#pivotal-cards-pages .header .severity .sev3 { color: yellow; }
+#pivotal-cards-pages .header .severity .sev4 { color: green; }
 
 #pivotal-cards-pages .middle {
     height: 53mm;
