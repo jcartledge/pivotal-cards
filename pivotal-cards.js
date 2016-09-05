@@ -6,6 +6,9 @@
       <div class="${item.storyType} card" id="front-${item.cardno}">
         <div class="front side">
           <div class="header">
+            <span class="severity">
+              ${severityTpl(item.severity)}
+            </span>
             <span class="labels">
               ${labelTpl(item.labels)}
            <span>
@@ -54,6 +57,10 @@
     return undefined === owner ? '' : `<span class="owner">${owner}</span>`;
   }
 
+  function severityTpl (severity) {
+    return undefined === severity ? '' : `<span class="sev${severity}">${severity}</span>`;
+  }
+
   function buildCards ($el, items, project, markdown) {
     var frontPage, backPage, item;
 
@@ -73,7 +80,8 @@
             'labels': getLabels(story),
             'requester': getRequester(project, story),
             'owner': getOwner(project, story),
-            'points': getEstimate(story)
+            'points': getEstimate(story),
+            'severity': getSeverity(story)
           };
         }(id, project.stories().get(id)));
 
@@ -104,6 +112,10 @@
 
     function getDescription (story, markdown) {
       return markdown.makeHtml(story.get('description')) || '';
+    }
+
+    function getSeverity(story) {
+      return (getLabels(story).join(',').match(/sev([\d])/) || []).pop();
     }
 
     function getEstimate (story) {
