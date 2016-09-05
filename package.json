@@ -5,9 +5,9 @@
   "scripts": {
     "clean": "npm run clean:css && npm run clean:js",
     "clean:css": "rm build/*.css",
-    "clean.js": "rm build/*.js",
-    "build:css": "rm build/pivotal-cards.css; node-sass --include-path src/scss src/scss/pivotal-cards.scss|postcss --use autoprefixer -b 'last 2 versions'|postcss --use cssnano > build/pivotal-cards.css",
-    "build:js": "rm build/pivotal-cards.js; browserify src/js/pivotal-cards.js -o build/pivotal-cards.js -t [ babelify --presets [ es2015 ] ]",
+    "clean:js": "rm build/*.js",
+    "build:css": "npm run clean:css; node-sass --include-path src/scss src/scss/pivotal-cards.scss|postcss --use autoprefixer -b 'last 2 versions'|postcss --use cssnano > build/pivotal-cards.css",
+    "build:js": "npm run clean:js; browserify src/js/pivotal-cards.js -t [ babelify --presets [ es2015 ] ]|uglifyjs > build/pivotal-cards.js",
     "build:watch": "watch 'npm run build' src/*",
     "build": "npm run build:css && npm run build:js",
     "serve": "web-server -r ./build",
@@ -25,6 +25,7 @@
     "jquery": "^3.1.0",
     "node-sass": "^3.7.0",
     "postcss-cli": "^2.5.2",
+    "uglify": "^0.1.5",
     "watch": "^0.18.0",
     "web-server-cli": "^2.0.1"
   }
