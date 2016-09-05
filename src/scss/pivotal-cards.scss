@@ -1,0 +1,317 @@
+/*
+ *  hard-coded ISO paper sizes, but you can zoom when printing, no?
+ */
+#pivotal-cards-pages .page {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 3.5mm;
+    display: block;
+    margin: 14mm 5.5mm;
+    padding: 0;
+    border: 1px dotted #eee;
+    width: 283mm;
+    height: 170mm;
+    page-break-after: always;
+}
+
+/*
+ *  double-sided printing
+ */
+#pivotal-cards-pages.double-sided .backs {
+    -webkit-transform: rotate(180deg);
+}
+
+#pivotal-cards-pages.double-sided .backs .card {
+    float: right;
+}
+
+#pivotal-cards-pages .card {
+    float: left;
+    height: 85mm;
+    /*width; 132mm;*/
+    padding: 0;
+    padding-left: 3.5mm;
+    padding-top: 0.5mm;
+    -webkit-print-color-adjust: exact;
+}
+
+#pivotal-cards-pages .side {
+    margin: 5mm;
+    height: 65mm;
+    width: 115mm;
+    padding: 5mm;
+    overflow: hidden;
+    color: #333;
+    position: relative;
+}
+
+#pivotal-cards-pages .back {
+    border: 1mm solid #333;
+}
+
+#pivotal-cards-pages .header {
+    height: 7.5mm;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+#pivotal-cards-pages .back .header {
+    border-bottom: 1mm solid #333;
+    margin-bottom: 4mm;
+    padding-bottom: 2mm;
+}
+
+#pivotal-cards-pages .header .severity {
+  position: relative;
+  top: -2mm;
+  font-size: 9mm;
+  font-weight: bold;
+}
+
+#pivotal-cards-pages .header .severity .sev1 { color: red; }
+#pivotal-cards-pages .header .severity .sev2 { color: orange; }
+#pivotal-cards-pages .header .severity .sev3 { color: yellow; }
+#pivotal-cards-pages .header .severity .sev4 { color: green; }
+
+#pivotal-cards-pages .middle {
+    height: 53mm;
+    max-height: 53mm;
+    width: 115mm;
+    overflow: hidden;
+    display: table;
+    position: relative;
+}
+
+#pivotal-cards-pages .back .middle {
+    height: 48mm;
+    max-height: 48mm;
+}
+
+#pivotal-cards-pages .front .story-type {
+    color: rgba(255, 0, 0, 0.1);
+    font-family: impact;
+    font-weight: bolder;
+    text-transform: uppercase;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+#pivotal-cards-pages .front .story-title {
+    font-weight: bold;
+    font-size: 9mm;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    text-transform: uppercase;
+    z-index: 4;
+}
+
+#pivotal-cards-pages .labels {
+    float: right;
+}
+
+#pivotal-cards-pages .label {
+    background-color: #333;
+    color: #fff;
+    padding: 1mm;
+}
+
+#pivotal-cards-pages .header .project,
+#pivotal-cards-pages .header .id {
+    padding: 1mm 0;
+}
+
+#pivotal-cards-pages .project {
+    font-weight: bold;
+}
+
+
+#pivotal-cards-pages .back .id {
+    float: right;
+}
+
+#pivotal-cards-pages .back .id:before {
+    content: '#';
+}
+
+#pivotal-cards-pages .footer {
+    color: #333;
+    height: 7.5mm;
+    width: 115mm;
+    position: absolute;
+    bottom: 0;
+}
+
+#pivotal-cards-pages .amp {
+    font-family: "Baskerville";
+    font-weight: normal;
+    font-style: italic;
+}
+
+#pivotal-cards-pages .epic_name {
+    float: left;
+    text-transform: uppercase;
+}
+
+#pivotal-cards-pages .points {
+    float: right;
+    position: relative;
+    top: -4.5mm;
+    font-size: 9mm;
+    font-weight: bold;
+}
+
+#pivotal-cards-pages .back .story-title {
+    font-weight: bold;
+}
+
+#pivotal-cards-pages .description {
+    font-family: serif;
+    margin: 2mm 0;
+}
+
+#pivotal-cards-pages .tasks {
+    margin: 2mm 0;
+    width: 100%
+}
+
+#pivotal-cards-pages .task {
+    font-family: serif;
+    font-style: italic;
+}
+
+#pivotal-cards-pages .check {
+    font-weight: bold;
+    vertical-align: top;
+}
+
+#pivotal-cards-pages .requester {
+    float: left;
+}
+
+#pivotal-cards-pages .requester:before {
+    content: "By: ";
+    font-weight: bold;
+}
+
+#pivotal-cards-pages .owner {
+    float: right;
+}
+
+#pivotal-cards-pages .owner:before {
+    content: "For: ";
+    font-weight: bold;
+}
+
+/*
+ *  cards for story-type
+ */
+#pivotal-cards-pages.filing-colours .front {
+    border: 1mm solid #333;
+}
+
+#pivotal-cards-pages.filing-colours .bug,
+#pivotal-cards-pages.filing-colours .bug .footer {
+    background-color: #ffffff;
+}
+
+#pivotal-cards-pages.filing-colours .bug .label {
+    color: #ffffff;
+}
+
+#pivotal-cards-pages.filing-colours .chore,
+#pivotal-cards-pages.filing-colours .chore .footer {
+    background-color: #f8f8f8;
+}
+
+#pivotal-cards-pages.filing-colours .chore .label {
+    color: #f8f8f8;
+}
+
+#pivotal-cards-pages.filing-colours .epic,
+#pivotal-cards-pages.filing-colours .epic .footer  {
+    background-color: #f0b040;
+}
+
+#pivotal-cards-pages.filing-colours .epic .label {
+    color: #f0b040;
+}
+
+#pivotal-cards-pages.filing-colours .release,
+#pivotal-cards-pages.filing-colours .release .footer {
+    background-color: #d0c0ff;
+}
+
+#pivotal-cards-pages.filing-colours .release .label {
+    color: #d0c0ff;
+}
+
+#pivotal-cards-pages.filing-colours .feature,
+#pivotal-cards-pages.filing-colours .feature .footer {
+    background-color: #e9f9d9;
+}
+
+#pivotal-cards-pages.filing-colours .feature .label {
+    color: #f0ffe0;
+}
+
+#pivotal-cards-pages.filing-colours .spike,
+#pivotal-cards-pages.filing-colours .spike .footer {
+    background-color: #fffba0;
+}
+
+#pivotal-cards-pages.filing-colours .spike .label {
+    color: #fffba0;
+}
+
+/*
+ *  story type as rubber stamp
+ */
+#pivotal-cards-pages.rubber-stamp .chore .front .story-type {
+    margin-top: 0;
+    margin-left: 0;
+    font-size: 44mm;
+}
+
+#pivotal-cards-pages.rubber-stamp .epic .front .story-type {
+    margin-top: -12mm;
+    margin-left: 3mm;
+    font-size: 61mm;
+}
+
+#pivotal-cards-pages.rubber-stamp .feature .front .story-type {
+    display: none;
+}
+
+#pivotal-cards-pages.rubber-stamp .spike .front .story-type {
+    margin-top: -5mm;
+    margin-left: 0mm;
+    font-size: 50mm;
+}
+
+#pivotal-cards-pages.rubber-stamp .release .front .story-type {
+    margin-top: 4.5mm;
+    margin-left: 0mm;
+    font-size: 36mm;
+}
+
+#pivotal-cards-pages.rubber-stamp .bug .front .story-type {
+    margin-top: -11mm;
+    margin-left: 7mm;
+    font-size: 62mm;
+}
+
+/*
+ *  white backs
+ */
+#pivotal-cards-pages.white-backs .backs .card,
+#pivotal-cards-pages.white-backs .backs .card .side,
+#pivotal-cards-pages.white-backs .backs .card .side .footer {
+    background-color: #ffffff;
+}
+
+#pivotal-cards-pages {
+    background-color: #ffffff;
+}

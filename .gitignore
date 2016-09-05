@@ -1,2 +1,2 @@
-jquery.js
-underscore.js
+node_modules/*
+build/*

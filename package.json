@@ -1,0 +1,25 @@
+{
+  "name": "pivotal-cards",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prebuild:css": "rm build/pivotal-cards.css; node-sass --include-path src/scss src/scss/pivotal-cards.scss build/pivotal-cards.css",
+    "build:css": "postcss --use autoprefixer -b 'last 2 versions' < build/pivotal-cards.css | postcss --use cssnano > pivotal-cards.css",
+    "build:js": "rm build/pivotal-cards.js; browserify src/js/pivotal-cards.js -o build/pivotal-cards.js -t [ babelify --presets [ es2015 ] ]",
+    "build": "npm run build:css && npm run build:js",
+    "build:watch": "watch 'npm run build' src/*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "cssnano": "^3.6.2",
+    "jquery": "^3.1.0",
+    "node-sass": "^3.7.0",
+    "postcss-cli": "^2.5.2",
+    "watch": "^0.18.0"
+  }
+}
