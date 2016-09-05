@@ -12,16 +12,16 @@
             <span class="labels">
               ${labelTpl(item.labels)}
            <span>
-        </div>
-        <div class="middle">
-          <div class="story-title">${item.name}</div>
-            <div class="story-type">${item.storyType}</div>
-          </div>
-        </div>
-        <div class="footer">
-          <span class="epic_name">${item.epicName}</span>
-          <span class="points points${item.points}"><span>${item.points}</span></span>
-        </div>
+         </div>
+         <div class="middle">
+           <div class="story-title">${item.name}</div>
+           <div class="story-type">${item.storyType}</div>
+         </div>
+         <div class="footer">
+           <span class="epic_name">${item.epicName}</span>
+           <span class="points points${item.points}"><span>${item.points}</span></span>
+         </div>
+       </div>
       </div>`;
   }
 
@@ -40,13 +40,14 @@
           <div class="middle">
             <div class="story-title">${item.name}</div>
             <div class="description">${item.description}</div>
-          </div>
-          <div class="footer">
-            ${requesterTpl(item.requester)}
-            ${ownerTpl(item.owner)}
-          </div>
-        </div>
-      </div>`;
+         </div>
+         <div class="footer">
+           ${requesterTpl(item.requester)}
+           ${ownerTpl(item.owner)}
+         </div>
+       </div>
+      </div>
+    `;
   }
 
   function requesterTpl (requester) {
@@ -65,7 +66,7 @@
     var frontPage, backPage, item;
 
     items.map(item => item.className.match(/story_([0-9]+)/)[1])
-      .filter((val, i, self) => self.indexOf(val) === i) // uniq
+      .filter((val, i, self) => self.indexOf(val) === i)
       .map(function (id, cardno) {
         item = (function (id, story) {
           return {
@@ -133,30 +134,32 @@
     }
   }
 
-  function load (scripts, done) {
-    scripts.length ? $.getScript(scripts.shift(), () => load(scripts, done)) : done();
-  }
-
-  load(
-    ['Converter', 'Sanitizer'].map(name => `//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.${name}.js`),
-    () => {
-      window.pivotalCards = function () {
-        let $cards = $('#pivotal-cards-pages');
-        let root = document.querySelector('#root').style;
-        if ($cards.length > 0) {
-          $cards.remove();
-          root.display = 'none';
-        } else {
-          root.display = 'block';
-          buildCards(
-            $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo(document.body),
-            $('.item:has(.selected)').get(),
-            tracker.Project.current(),
-            window.Markdown.getSanitizingConverter()
-          );
+  $.getScript(
+    '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js',
+    function () {
+      $.getScript(
+        '//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js',
+        function () {
+          window.pivotalCards = function () {
+            var $body = $('body');
+            var $cards = $('#pivotal-cards-pages');
+            var $root = $('#root');
+            if ($cards.length > 0) {
+              $cards.remove();
+              $root.show();
+            } else {
+              $root.hide();
+              buildCards(
+                $('<div id="pivotal-cards-pages" class="rubber-stamp filing-colours white-backs double-sided"/>').appendTo($body),
+                $('.item:has(.selected)').get(),
+                tracker.Project.current(),
+                window.Markdown.getSanitizingConverter()
+              );
+            }
+          };
+          window.pivotalCards();
         }
-      };
-      window.pivotalCards();
+      );
     }
   );
 }(window, window.jQuery, window.tracker));
