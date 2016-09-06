@@ -2,8 +2,7 @@
   "name": "pivotal-cards",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -14,10 +13,10 @@
     "concurrently": "^2.2.0",
     "cssnano": "^3.6.2",
     "jquery": "^3.1.0",
+    "local-web-server": "^1.2.6",
     "node-sass": "^3.7.0",
     "postcss-cli": "^2.5.2",
     "uglify": "^0.1.5",
-    "watch": "^0.18.0",
-    "web-server-cli": "^2.0.1"
+    "watch": "^0.18.0"
   }
 }

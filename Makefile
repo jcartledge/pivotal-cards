@@ -26,7 +26,7 @@ watch-js:
 	$(BIN)/watch 'make clean-js && make $(JS_DEST)'  $(SRC)/js
 
 serve:
-	$(BIN)/web-server -r $(DIST)
+	$(BIN)/ws --https -c -d $(DIST)
 
 dev:
 	$(BIN)/concurrently --kill-others 'make watch' 'make serve'
