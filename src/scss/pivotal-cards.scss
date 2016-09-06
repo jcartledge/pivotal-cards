@@ -23,7 +23,6 @@
   .card {
     float: left;
     height: 85mm;
-    /*width; 132mm;*/
     padding: 0;
     padding-left: 3.5mm;
     padding-top: 0.5mm;
@@ -62,13 +61,13 @@
   position: relative;
   top: -2mm;
   font-size: 9mm;
-  font-weight: bold;
-}
 
-#pivotal-cards-pages .header .severity .sev1 { color: red; }
-#pivotal-cards-pages .header .severity .sev2 { color: orange; }
-#pivotal-cards-pages .header .severity .sev3 { color: yellow; }
-#pivotal-cards-pages .header .severity .sev4 { color: green; }
+  font-weight: bold;
+  .sev1 { color: red; }
+  .sev2 { color: orange; }
+  .sev3 { color: yellow; }
+  .sev4 { color: blue; }
+}
 
 #pivotal-cards-pages .middle {
   height: 53mm;
