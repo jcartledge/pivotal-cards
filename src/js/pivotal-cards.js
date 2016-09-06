@@ -67,8 +67,8 @@ function buildCards ($el, items, project, markdown) {
 
   items.map(item => item.className.match(/story_([0-9]+)/)[1])
     .filter((val, i, self) => self.indexOf(val) === i)
-    .map(function (id, cardno) {
-      item = (function (id, story) {
+    .map((id, cardno) => {
+      item = (((id, story) => {
         return {
           'cardno': cardno,
           'storyType': getType(story),
@@ -84,7 +84,7 @@ function buildCards ($el, items, project, markdown) {
           'points': getEstimate(story),
           'severity': getSeverity(story)
         };
-      }(id, project.stories().get(id)));
+      })(id, project.stories().get(id)));
 
       if ((cardno % 4) === 0) {
         frontPage = $('<div class="page fronts"/>').appendTo($el);
