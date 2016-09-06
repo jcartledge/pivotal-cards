@@ -11,7 +11,7 @@
     page-break-after: always;
   }
 
-  .double-sided {
+  &.double-sided {
     .backs {
       transform: rotate(180deg);
       .card {
